@@ -16,5 +16,36 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
+    Not(in=sel[0], out=NOT0);
+    Not(in=sel[1], out=NOT1);
+    Not(in=sel[2], out=NOT2);
+    
+    And(a=NOT0, b=NOT1, out=ANDa);
+    And(a=sel[0], b=NOT1, out=ANDb);
+    And(a=NOT0, b=sel[1], out=ANDc);
+    And(a=sel[0], b=sel[1], out=ANDd); 
+    And(a=NOT0, b=NOT1, out=ANDe);
+    And(a=sel[0], b=NOT1, out=ANDf);
+    And(a=NOT0, b=sel[1], out=ANDg);
+    And(a=sel[0], b=sel[1], out=ANDh); 
+
+    And(a=ANDa, b=NOT2, out=andANDa);
+    And(a=ANDb, b=NOT2, out=andANDb);
+    And(a=ANDc, b=NOT2, out=andANDc);
+    And(a=ANDd, b=NOT2, out=andANDd); 
+    And(a=ANDe, b=sel[2], out=andANDe);
+    And(a=ANDf, b=sel[2], out=andANDf);
+    And(a=ANDg, b=sel[2], out=andANDg);
+    And(a=ANDh, b=sel[2], out=andANDh); 
+ 
+    And(a=andANDa, b=in, out=a);
+    And(a=andANDb, b=in, out=b);
+    And(a=andANDc, b=in, out=c);
+    And(a=andANDd, b=in, out=d);    
+    And(a=andANDe, b=in, out=e);
+    And(a=andANDf, b=in, out=f);
+    And(a=andANDg, b=in, out=g);
+    And(a=andANDh, b=in, out=h);    
+      
     // Put your code here:
 }
