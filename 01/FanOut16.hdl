@@ -1,0 +1,8 @@
+CHIP FanOut16 {
+    IN in;
+    OUT out[16];
+
+    PARTS:
+    NotFanOut16(in=in, out=NOTin);
+    Not16(in=NOTin, out=out);
+} 
