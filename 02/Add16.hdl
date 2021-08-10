@@ -29,7 +29,5 @@ CHIP Add16 {
     FullAdder(a=a[13], b=b[13], c=CARRY12, sum=out[13], carry=CARRY13);
     FullAdder(a=a[14], b=b[14], c=CARRY13, sum=out[14], carry=CARRY14);
     FullAdder(a=a[15], b=b[15], c=CARRY14, sum=out[15], carry=CARRY15);
-
-
-    // Put you code here:
+    // Carry15 is overflow
 }
