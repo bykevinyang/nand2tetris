@@ -57,7 +57,9 @@ CHIP ALU {
 
     Mux16(a=MUXf, b=NOT_MUXf, sel=no, out=out);
 
+    Not(in=x[0], out=zr);
+    Not(in=x[0], out=ng);
     // For zr and ng:
-    
+    // And(a=out[16], b=, out=);
   // Put you code here:
 }
