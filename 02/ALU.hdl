@@ -58,13 +58,14 @@ CHIP ALU {
     Mux16(a=MUXf, b=NOTMUXf, sel=no, out=out, out=outCopy);
 
     // Bit masking for first bit
-    And16(a=outCopy, b[15]=true, b[0..14]=false, out=sb); 
-    // Or16Way(a=sb, out=signedBit);
+    And16(a=outCopy, b[15]=true, b[0..14]=false, out=signedBitOnly); 
 
-    // And(a=signedBit, b=true, out=ng);
+    Or16Way(in=signedBitOnly, out=signedBit);
 
-    // Or16Way(a=out, out=zr);
+    And(a=signedBit, b=true, out=ng);
 
+    Or16Way(in=outCopy, out=ORout);
+    Not(in=ORout, out=zr);
     // Or8Way(in=out[0..7], out=ORout1);
     // Or8Way(in=out[8..15], out=ORout2);
 
