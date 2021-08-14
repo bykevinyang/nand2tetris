@@ -53,12 +53,25 @@ CHIP ALU {
 
     Mux16(a=xANDy, b=xADDy, sel=f, out=MUXf);
 
-    Not16(in=MUXf, out=NOT_MUXf);
+    Not16(in=MUXf, out=NOTMUXf);
 
-    Mux16(a=MUXf, b=NOT_MUXf, sel=no, out=out);
+    Mux16(a=MUXf, b=NOTMUXf, sel=no, out=out, out=outCopy);
 
-    Not(in=x[0], out=zr);
-    Not(in=x[0], out=ng);
+    // Bit masking for first bit
+    And16(a=outCopy, b[15]=true, b[0..14]=false, out=sb); 
+    // Or16Way(a=sb, out=signedBit);
+
+    // And(a=signedBit, b=true, out=ng);
+
+    // Or16Way(a=out, out=zr);
+
+    // Or8Way(in=out[0..7], out=ORout1);
+    // Or8Way(in=out[8..15], out=ORout2);
+
+    // Or(a=ORout1, b=ORout2, out=zr);
+
+    // Not(in=x[0], out=zr);
+    // Not(in=x[0], out=ng);
     // For zr and ng:
     // And(a=out[16], b=, out=);
   // Put you code here:
