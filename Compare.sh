@@ -9,24 +9,24 @@
 #     printf 'The file "%s" is different from "%s"\n' "$file1" "$file2"
 # fi
 
-# path1=find . -name "$1.hdl"
+# path1=find . -name "$1.out"
 # path2=find . -name "$1.cmp"
 
 # echo $path1
 # echo $path2
 inputGate="$1"
 
-hdlLines=$(find . -name "$inputGate.hdl" | wc -l)
+outLines=$(find . -name "$inputGate.out" | wc -l)
 cmpLines=$(find . -name "$inputGate.cmp" | wc -l)
 
-echo $hdlLines
+echo $outLines
 echo $cmpLines
 
-if [ $hdlLines -eq 1 ]; then
-    hdlFile=($(find . -name "$inputGate.hdl"))
-    echo "File path of $inputeGate.hdl is: $hdlFile"
+if [ $outLines -eq 1 ]; then
+    outFile=($(find . -name "$inputGate.out"))
+    echo "File path of $inputeGate.out is: $outFile"
 else
-    echo "Error: $inputGate.hdl exists in multiple places"
+    echo "Error: $inputGate.out exists in multiple places"
     exit 1
 fi
 
@@ -38,7 +38,7 @@ else
     exit 1
 fi
 
-if cmp -s "$hdlFiles" "$cmpFiles"; then
+if cmp -s "$outFiles" "$cmpFiles"; then
     echo "Files are the same, good job!"
 else
     echo "Files are different, go debug"
