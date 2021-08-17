@@ -14,6 +14,9 @@
 
 # echo $path1
 # echo $path2
+
+#!bin/bash
+
 inputGate="$1"
 
 outLines=$(find . -name "$inputGate.out" | wc -l)
@@ -21,6 +24,8 @@ cmpLines=$(find . -name "$inputGate.cmp" | wc -l)
 
 echo $outLines
 echo $cmpLines
+
+# globalPath="C:\Users\Kevin Yang\Make\nand2tetris\projects"
 
 if [ $outLines -eq 1 ]; then
     outFile=($(find . -name "$inputGate.out"))
@@ -32,15 +37,14 @@ fi
 
 if [ $cmpLines -eq 1 ]; then
     cmpFile=($(find . -name "$inputGate.cmp"))
-    echo "File path of $inputGate.cmp: $cmpFile\n"
+    echo "File path of $inputGate.cmp: $cmpFile"
 else
     echo "Error: $inputGate.cmp exists in multiple places"
     exit 1
 fi
 
-if cmp -s "$outFiles" "$cmpFiles"; then
+if cmp -s "$outFile" "$cmpFile"; then
     echo "Files are the same, good job!"
 else
-    echo "Files are different, go debug"
+    echo "Files are different, go debug :("
 fi
-
