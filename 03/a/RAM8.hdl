@@ -28,6 +28,4 @@ CHIP RAM8 {
     Register(in=in[0..15], load=regHLoad, out=regH); 
 
     Mux8Way16(a=regA, b=regB, c=regC, d=regD, e=regE, f=regF, g=regG, h=regH, sel=address[0..2], out=out);
-
-    // Put your code here:
 }
