@@ -15,8 +15,7 @@ inputGate="$1"
 outLines=$(find . -name "$inputGate.out" | wc -l)
 cmpLines=$(find . -name "$inputGate.cmp" | wc -l)
 
-echo $outLines
-echo $cmpLines
+echo -e "---------------------------------------\n"
 
 if [ $outLines -eq 1 ]; then
     outFile=($(find . -name "$inputGate.out"))
@@ -28,9 +27,9 @@ fi
 
 if [ $cmpLines -eq 1 ]; then
     cmpFile=($(find . -name "$inputGate.cmp"))
-    echo "File path of $inputGate.cmp: $cmpFile"
+    echo -e "File path of $inputGate.cmp: $cmpFile \n"
 else
-    echo "Error: $inputGate.cmp exists in multiple places"
+    echo -e "Error: $inputGate.cmp exists in multiple places \n"
     exit 1
 fi
 
