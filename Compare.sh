@@ -20,14 +20,20 @@ echo -e "---------------------------------------\n"
 if [ $outLines -eq 1 ]; then
     outFile=($(find . -name "$inputGate.out"))
     echo "File path of $inputeGate.out is: $outFile"
+elif [ $outLines -eq 0 ]; then
+    echo "Error: $inputGate.out does not exist, please make sure input matches file name or .out file exists"
+    exit 1
 else
-    echo "Error: $inputGate.out exists in multiple places"
+    echo "Error: $inputGate.out exists in multiple places, cannot compare"
     exit 1
 fi
 
 if [ $cmpLines -eq 1 ]; then
     cmpFile=($(find . -name "$inputGate.cmp"))
     echo -e "File path of $inputGate.cmp: $cmpFile \n"
+elif [ $cmpLines -eq 0 ]; then
+    echo "Error: $inputGate.cmp does not exist, please make sure input matches file name or .cmp file exists"
+    exit 1
 else
     echo -e "Error: $inputGate.cmp exists in multiple places \n"
     exit 1
