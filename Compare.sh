@@ -18,8 +18,6 @@ cmpLines=$(find . -name "$inputGate.cmp" | wc -l)
 echo $outLines
 echo $cmpLines
 
-# globalPath="C:\Users\Kevin Yang\Make\nand2tetris\projects"
-
 if [ $outLines -eq 1 ]; then
     outFile=($(find . -name "$inputGate.out"))
     echo "File path of $inputeGate.out is: $outFile"
