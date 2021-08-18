@@ -1,21 +1,14 @@
-# #!/bin/bash
-
-# file1="C:\Users\Kevin Yang\Make\nand2tetris\projects\03\a\bit.out"
-# file2="C:\Users\Kevin Yang\Make\nand2tetris\projects\03\a\bit.cmp"
-
-# if cmp -s "$file1" "$file2"; then
-#     printf 'The file "%s" is the same as "%s"\n' "$file1" "$file2"
-# else
-#     printf 'The file "%s" is different from "%s"\n' "$file1" "$file2"
-# fi
-
-# path1=find . -name "$1.out"
-# path2=find . -name "$1.cmp"
-
-# echo $path1
-# echo $path2
+# (c) 2021 Kevin Yang (@bykevinyang) 
+# This code is licensed under MIT license (see LICENSE.txt for details)
 
 #!bin/bash
+
+# The code below takes one argument, the gate name,
+# and will auto compare the .out and .cmp files for that gate
+
+# If for some reason the script below does not work make sure:
+# 1. The .out or .cmp files exist
+# 2. The file you are using has the same name
 
 inputGate="$1"
 
