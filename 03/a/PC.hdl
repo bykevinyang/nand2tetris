@@ -24,16 +24,19 @@ CHIP PC {
     Or(a=LoadOrReset, b=inc, out=loadStatus);
 
     // Register:
-    Register(in=muxedIn[0..15], load=loadStatus, out=regOut);
+    Register(in=muxedIn, load=loadStatus, out=regOut);
 
-    // Incrementor
-    Inc16(in=regOut[0..15], out=incrementedOut);
+    // Mux switch for incrementor feed-in:
+    Mux16(a=false, b=regOut, sel=inc, out=MuxReg);
+
+    // Incrementor:
+    Inc16(in=MuxReg, out=incrementedOut);
 
     // Xor for casing of load, reset, and inc:
         // The output will only ever be incremented 
         // if inc is the only one turned on.
     Xor(a=LoadOrReset, b=inc, out=incStatus);
 
-    // Mux for Output
+    // Mux for Output:
     Mux16(a=regOut, b=incrementedOut, sel=incStatus, out=out);
 }
