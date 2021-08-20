@@ -15,9 +15,17 @@ CHIP RAM512 {
     OUT out[16];
 
     PARTS:
-    DMux8Way(in=load, sel=address[7..9], a=ram8ALoad, b=ram8BLoad, c=ram8CLoad, 
+    DMux8Way(in=load, sel=address[6..8], a=ram8ALoad, b=ram8BLoad, c=ram8CLoad, 
              d=ram8DLoad, e=ram8ELoad, f=ram8FLoad, g=ram8GLoad, h=ram8HLoad);
 
-    RAM64(in=in[0..15], load=ram8ALoad, address=address[0..6], out=ramA);
-    
+    RAM64(in=in[0..15], load=ram8ALoad, address=address[0..5], out=ramA);
+    RAM64(in=in[0..15], load=ram8BLoad, address=address[0..5], out=ramB);
+    RAM64(in=in[0..15], load=ram8CLoad, address=address[0..5], out=ramC);
+    RAM64(in=in[0..15], load=ram8DLoad, address=address[0..5], out=ramD);
+    RAM64(in=in[0..15], load=ram8ELoad, address=address[0..5], out=ramE);
+    RAM64(in=in[0..15], load=ram8FLoad, address=address[0..5], out=ramF);
+    RAM64(in=in[0..15], load=ram8GLoad, address=address[0..5], out=ramG);
+    RAM64(in=in[0..15], load=ram8HLoad, address=address[0..5], out=ramH);
+
+    Mux8Way16(a=ramA, b=ramB, c=ramC, d=ramD, e=ramE, f=ramF, g=ramG, h=ramH, sel=address[6..8], out=out);
 }
