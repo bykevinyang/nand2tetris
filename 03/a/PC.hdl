@@ -1,42 +1,18 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/03/a/PC.hdl
-
-/**
- * A 16-bit counter with load and reset control bits.
- * if      (reset[t] == 1) out[t+1] = 0
- * else if (load[t] == 1)  out[t+1] = in[t]
- * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
- * else                    out[t+1] = out[t]
- */
-
-CHIP PC {
+CHIP PC{
     IN in[16],load,inc,reset;
     OUT out[16];
-
+  
     PARTS:
-    // Mux for input to register:
-    Mux4Way16(a=in[0..15], b=false, c=incrementedOut, d=false, sel[0]=reset, sel[1]=inc, out=muxedIn);
+    // Mux's used as if statements, in order of governance (reset has most override, inc has least)
+    Mux16(a=false, b=incremented, sel=inc, out=incMux);
+    Mux16(a=incMux, b=in, sel=load, out=loadMux);
+    Mux16(a=loadMux, b=false, sel=reset, out=regIn);
 
-    // Or of Load, Reset, Inc to get load status for register:
-    Or(a=load, b=reset, out=LoadOrReset);
-    Or(a=LoadOrReset, b=inc, out=loadStatus);
+    // Load if anything is true
+    Or(a=load, b=reset, out=loadORreset);
+    Or(a=loadORreset, b=inc, out=loadStatus);
 
-    // Register:
-    Register(in=muxedIn, load=loadStatus, out=regOut);
-
-    // Mux switch for incrementor feed-in:
-    Mux16(a=false, b=regOut, sel=inc, out=MuxReg);
-
-    // Incrementor:
-    Inc16(in=MuxReg, out=incrementedOut);
-
-    // Xor for casing of load, reset, and inc:
-        // The output will only ever be incremented 
-        // if inc is the only one turned on.
-    Xor(a=LoadOrReset, b=inc, out=incStatus);
-
-    // Mux for Output:
-    Mux16(a=regOut, b=incrementedOut, sel=incStatus, out=out);
+    // Load into reg, inc fed back into loop
+    Register(in=regIn, load=loadStatus, out=out, out=toInc);
+    Inc16(in=toInc, out=incremented);
 }
